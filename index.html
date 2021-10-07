@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>wavesurfer</title>
+	<script src="https://unpkg.com/wavesurfer.js"></script>
+	<script src="https://unpkg.com/wavesurfer.js@5.1.0/dist/plugin/wavesurfer.cursor.js"></script>
+	<style>
+	
+		body{
+			margin: 0px;
+		}
+		#waveform{
+			width: 300px;
+			height:100px;
+			
+			background: #ffffff;
+			position: fixed;
+			overflow: hidden;
+		}
+		#waveform canvas{
+			max-height: 100px;
+		}
+	</style>
+</head>
+<body>
+
+	<input type="submit" value="pause" id="pause">
+	<input type="submit" value="play" id="play">
+	<input type="submit" value="Stop" id="stop">
+	
+	<div id="waveform"></div>
+	
+
+	<script>
+	
+	var wavesurfer = WaveSurfer.create({
+		container: '#waveform',
+		waveColor: '#808080',
+		progressColor: '#3d96e2',
+		barWidth:0,
+		barHeight:1, 
+		barGap: null,
+		height:100,
+		responsive:true,
+		hideScrollbar:true,
+		barRadius:2,
+		plugins: [
+			WaveSurfer.cursor.create({
+				showTime: true,
+				opacity: 1,
+				customShowTimeStyle: {
+					'background-color': '#000',
+					color: '#fff',
+					padding: '2px',
+					'font-size': '10px'
+				}
+        	})
+		]
+		
+	});
+		
+	console.log(WaveSurfer);
+	wavesurfer.load('Dubstep.mp3');
+
+	wavesurfer.on('ready', function () {
+		wavesurfer.play();
+	});
+		
+	var play = document.querySelector('#play');
+	var pause =  document.querySelector('#pause');
+	var stop =  document.querySelector("#stop");
+	
+	play.addEventListener('click',function(){
+		wavesurfer.play();
+	},false);
+		
+	pause.addEventListener('click',function(){
+		wavesurfer.pause();
+	},false);		
+		
+	stop.addEventListener('click',function(){
+		wavesurfer.stop();
+	},false);				
+		
+	</script>
+
+</body>
+</html>
